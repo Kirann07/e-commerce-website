@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlamNest | Girls' Fashion Boutique</title>
+    <meta name="description" content="Discover elegant girls' fashion with our curated collection of dresses, tops, bottoms and accessories. Free shipping on orders over ₹2000.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F3D7CA",
+                        secondary: "#E6A4B4",
+                        accent: "#C86B85",
+                        neutral: "#F5EEE6",
+                        dark: "#333333",
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(246,240,237,0.9) 100%);
+        }
+    </style>
+
+    <style>
+        .login-form-container {
+            position: fixed;
+            top: -120%;
+            left: 0;
+            z-index: 10000;
+            min-height: 100vh;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: top 0.4s ease;
+        }
+        
+        .login-form-container.active {
+            top: 0;
+        }
+        
+        .login-form-container form {
+            margin: 2rem;
+            padding: 1.5rem 2rem;
+            border-radius: 0.5rem;
+            background: #fff;
+            width: 50rem;
+            position: relative;
+        }
+        
+        .login-form-container form h3 {
+            font-size: 2rem;
+            color: #444;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .login-form-container form .box {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            color: #333;
+            margin: 0.6rem 0;
+            border: 0.1rem solid rgba(0, 0, 0, 0.7);
+            text-transform: none;
+        }
+        
+        .login-form-container form .box:focus {
+            border-color: var(--accent, #4b3f72);
+        }
+        
+        .login-form-container form #remember {
+            margin: 2rem 0;
+        }
+        
+        .login-form-container form label {
+            font-size: 1rem;
+        }
+        
+        .login-form-container form .btn {
+            display: block;
+            width: 100%;
+            background: var(--accent, #4b3f72);
+            color: #fff;
+            padding: 1rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1.6rem;
+            border-radius: 0.4rem;
+        }
+        
+        .login-form-container form p {
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .login-form-container form p a {
+            color: var(--accent, #4b3f72);
+        }
+        
+        .login-form-container form p a:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+        
+        .login-form-container #form-close {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            }
+    </style>
+    
+</head>
+<body class="font-sans bg-neutral text-dark">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="flex items-center">
+                    <button class="md:hidden mr-4">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <a href="#" class="text-2xl font-serif font-bold text-accent">GlamNest</a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="hover:text-accent transition">New Arrivals</a>
+                
+                    <!-- Dropdown: Shop -->
+                    <div class="relative group">
+                        <a href="#" class="hover:text-accent transition">Shop</a>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 z-50">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Dresses</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Tops</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Bottoms</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
+                        </div>
+                    </div>
+                
+                    <!-- Dropdown: Collections -->
+                    <div class="relative group">
+                        <a href="#" class="hover:text-accent transition">Collections</a>
+                        <div class="absolute left-0 mt-2 w-40 bg-white border rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition duration-300 z-50">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Summer 2025</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Festive</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Classic</a>
+                        </div>
+                    </div>
+                
+                    <a href="#about" class="hover:text-accent transition">About</a>
+                </nav>
+                
+                
+                <div class="flex items-center space-x-4">
+                    <button>
+                        <i class="fas fa-search text-lg hover:text-accent transition"></i>
+                    </button>
+                    <button>
+                        <i class="fas fa-user text-lg hover:text-accent transition" id="loginBtn"></i>
+                    </button>
+                    <button class="relative">
+                        <i class="fas fa-shopping-bag text-lg hover:text-accent transition"></i>
+                        <span class="absolute -top-2 -right-2 bg-accent text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="login-form-container" id="loginFormContainer">
+        <i class="fas fa-times" id="form-close"></i>
+    
+        <form>
+            <h3>Login Now</h3>
+            <input type="email" placeholder="Enter your email" class="box" required>
+            <input type="password" placeholder="Enter your password" class="box" required>
+            <div>
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember Me</label>
+            </div>
+            <input type="submit" value="Login" class="btn">
+            <p>Forgot password? <a href="#">Click here</a></p>
+            <p>Don't have an account? <a href="#">Register now</a></p>
+        </form>
+    </div>
+    
+
+    <!-- Hero Banner -->
+    <section class="relative h-96 md:h-screen max-h-[700px] overflow-hidden">
+        <img id="slide-img-5" src="images/banner-1.jpg" alt="Girl in floral dress smiling" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center">
+            <div class="container mx-auto px-4 text-white animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-serif font-bold mb-4">Spring Collection 2025</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl">Discover our elegant new arrivals designed to glam with you</p>
+                <button class="bg-accent hover:bg-opacity-90 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                    Shop Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop by Category -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 id="gothere" class="text-3xl font-serif font-bold text-center mb-12">Shop by Category</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="#" class="group relative h-64 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <img id="slide-img-1" src="images/d-0.jpg" alt="Dresses collection" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition">
+                      <h3 class="text-white text-2xl font-serif font-bold">Dresses</h3>
+                    </div>
+                </a>
+                <a href="#" class="group relative h-64 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <img id="slide-img-2" src="images/t-0.jpg" alt="Tops collection" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition">
+                      <h3 class="text-white text-2xl font-serif font-bold">Tops</h3>
+                    </div>
+                </a>
+                <a href="#" class="group relative h-64 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <img id="slide-img-3" src="images/b-1.jpg" alt="Bottoms collection" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition">
+                      <h3 class="text-white text-2xl font-serif font-bold">Bottoms</h3>
+                    </div>
+                </a>
+                <a href="#" class="group relative h-64 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                    <img id="slide-img-4" src="images/a-1.jpg" alt="Accessories collection" class="w-full h-full object-cover transition duration-500">
+                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group-hover:bg-opacity-40 transition">
+                      <h3 class="text-white text-2xl font-serif font-bold">Accessories</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. Dresses
+        const images1 = ["images/d-0.jpg", "images/d-1.jpg", "images/d-2.jpg", "images/d-3.jpg","images/d-4.jpg"];
+        let index1 = 0;
+        const imgTag1 = document.getElementById("slide-img-1");
+        setInterval(() => {
+          index1 = (index1 + 1) % images1.length;
+          imgTag1.src = images1[index1];
+        }, 2000);
+      
+        // 2. Tops
+        const images2 = ["images/t-0.jpg", "images/t-3.jpg", "images/t-5.jpg", "images/t-2.jpg", "images/t-4.jpg", "images/t-6.jpg"];
+        let index2 = 0;
+        const imgTag2 = document.getElementById("slide-img-2");
+        setInterval(() => {
+          index2 = (index2 + 1) % images2.length;
+          imgTag2.src = images2[index2];
+        }, 2000);
+      
+        // 3. Bottoms
+        const images3 = ["images/b-1.jpg", "images/b-2.jpg", "images/b-3.jpg", "images/b-4.jpg", "images/b-5.jpg","images/b-6.jpg", "images/b-7.jpg"];
+        let index3 = 0;
+        const imgTag3 = document.getElementById("slide-img-3");
+        setInterval(() => {
+          index3 = (index3 + 1) % images3.length;
+          imgTag3.src = images3[index3];
+        }, 2000);
+      
+        // 4. Accessories
+        const images4 = ["images/a-1.jpg", "images/a-2.jpg", "images/a-3.jpg","images/a-4.jpg", "images/a-6.jpg"];
+        let index4 = 0;
+        const imgTag4 = document.getElementById("slide-img-4");
+        setInterval(() => {
+          index4 = (index4 + 1) % images4.length;
+          imgTag4.src = images4[index4];
+        }, 2000);
+
+        const images5 = ["images/banner-1.jpg", "images/banner-2.jpg", "images/banner-3.jpg","images/banner-4.jpg"];
+        let index5 = 0;
+        const imgTag5 = document.getElementById("slide-img-5");
+        setInterval(() => {
+          index5 = (index5 + 1) % images5.length;
+          imgTag5.src = images5[index5];
+        }, 3000);
+       
+    </script>
+      
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-serif font-bold">Featured Products</h2>
+                <a href="#" class="text-accent hover:underline">View All</a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
+                    <div class="product-card relative">
+                        <img src="images/d-5.jpg" alt="Floral summer dress" class="product-image w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-white text-xs px-2 py-1 rounded">New</div>
+                        <button class="absolute bottom-0 left-0 right-0 bg-accent text-white py-2 text-center opacity-0 group-hover:opacity-100 transition">Quick View</button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Floral Summer Dress</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-1">(24)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-serif font-bold text-lg">₹1,899</span>
+                            <button class="add-to-cart text-accent hover:text-accent-dark">
+                                <i class="fas fa-plus-circle text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
+                    <div class="product-card relative">
+                        <img src="images/j-1.jpg" alt="Denim jacket" class="product-image w-full h-64 object-cover">
+                        <button class="absolute bottom-0 left-0 right-0 bg-accent text-white py-2 text-center opacity-0 group-hover:opacity-100 transition">Quick View</button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Denim Jacket</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-1">(18)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-serif font-bold text-lg">₹2,499</span>
+                            <button class="add-to-cart text-accent hover:text-accent-dark">
+                                <i class="fas fa-plus-circle text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
+                    <div class="product-card relative">
+                        <img src="images/t-8.jpg" alt="Lace top" class="product-image w-full h-64 object-cover">
+                        <div class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Sale</div>
+                        <button class="absolute bottom-0 left-0 right-0 bg-accent text-white py-2 text-center opacity-0 group-hover:opacity-100 transition">Quick View</button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Lace Top</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-1">(32)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-serif font-bold text-lg text-accent">₹1,299</span>
+                                <span class="text-gray-500 text-sm line-through ml-2">₹1,799</span>
+                            </div>
+                            <button class="add-to-cart text-accent hover:text-accent-dark">
+                                <i class="fas fa-plus-circle text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300">
+                    <div class="product-card relative">
+                        <img src="images/s-1.jpg" alt="Pleated skirt" class="product-image w-full h-64 object-cover">
+                        <button class="absolute bottom-0 left-0 right-0 bg-accent text-white py-2 text-center opacity-0 group-hover:opacity-100 transition">Quick View</button>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-1">Pleated Skirt</h3>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-1">(15)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-serif font-bold text-lg">₹1,599</span>
+                            <button class="add-to-cart text-accent hover:text-accent-dark">
+                                <i class="fas fa-plus-circle text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Limited Time Offer -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary">
+        <div id="sale" class="container mx-auto px-4 text-center text-white">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">Summer Sale - Limited Time Offer!</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Get 30% off on all dresses. Use code <span class="font-bold">SUMMER30</span> at checkout.</p>
+            <div class="flex justify-center space-x-4 mb-8">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold">02</div>
+                    <div class="text-sm">Days</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold">12</div>
+                    <div class="text-sm">Hours</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold">45</div>
+                    <div class="text-sm">Minutes</div>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4 text-center">
+                    <div class="text-3xl font-bold">30</div>
+                    <div class="text-sm">Seconds</div>
+                </div>
+            </div>
+            <button class="bg-white text-accent hover:bg-opacity-90 px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+                Shop the Sale
+            </button>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-center mb-12">What Our Customers Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-lg shadow-md animate-slide-up">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">"The quality of the dresses is amazing! I've received so many compliments. Will definitely shop here again."</p>
+                    <div class="flex items-center">
+                        <img src="images/c-1.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Priya Sharma</h4>
+                            <p class="text-gray-500 text-sm">Mumbai</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-md animate-slide-up">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">"Fast delivery and excellent customer service. The fabric is so comfortable and the fit is perfect."</p>
+                    <div class="flex items-center">
+                        <img src="images/c-2.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Ananya Patel</h4>
+                            <p class="text-gray-500 text-sm">Delhi</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card p-8 rounded-lg shadow-md animate-slide-up">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mb-6">"I love the unique designs! The clothes make me feel confident and stylish. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <img src="images/c-3.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Riya Kapoor</h4>
+                            <p class="text-gray-500 text-sm">Bangalore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-neutral">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-serif font-bold mb-4">Join Our Newsletter</h2>
+            <p class="text-lg mb-8 max-w-2xl mx-auto">Subscribe to get updates on new arrivals, exclusive offers and styling tips.</p>
+            <form class="max-w-md mx-auto flex">
+                <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-accent">
+                <button type="submit" class="bg-accent text-white px-6 py-3 rounded-r-lg font-medium hover:bg-opacity-90 transition">Subscribe</button>
+            </form>
+            <p class="text-sm text-gray-500 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+        </div>
+    </section>
+
+    <!-- Instagram Feed -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-serif font-bold text-center mb-8">Follow Us @GlamNest</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/a-5.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/d-6.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/t-7.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/t-1.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/b-8.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+                <a href="#" class="product-card group relative">
+                    <img src="images/unused/a-7.jpg" alt="Instagram post" class="product-image w-full h-full object-cover aspect-square">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition">
+                        <i class="fab fa-instagram text-white text-2xl opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="about" class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-serif font-bold mb-4">GlamNest</h3>
+                    <p class="mb-4">Elegant fashion for the modern girl. Quality fabrics, perfect fits, and timeless designs.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-accent transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-accent transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-accent transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-accent transition"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-serif font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-accent transition">New Arrivals</a></li>
+                        <li><a href="#gothere" class="hover:text-accent transition">Dresses</a></li>
+                        <li><a href="#gothere" class="hover:text-accent transition">Tops</a></li>
+                        <li><a href="#gothere" class="hover:text-accent transition">Bottoms</a></li>
+                        <li><a href="#gothere" class="hover:text-accent transition">Accessories</a></li>
+                        <li><a href="#sale" class="hover:text-accent transition">Sale</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-serif font-bold mb-4">Help</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-accent transition">FAQs</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Size Guide</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Track Order</a></li>
+                        <li><a href="#" class="hover:text-accent transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-serif font-bold mb-4">Contact</h4>
+                    <address class="not-italic">
+                        <p class="mb-2">123 Fashion Street, Bhilai West</p>
+                        <p class="mb-2">Bhilai, Chhattisgarh 490006</p>
+                        <p class="mb-2">India</p>
+                        <p class="mb-2">Phone: +91 98765 43210</p>
+                        <p>Email: hello@glamnest.com</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-sm">
+                <p>&copy; 2023 GlamNest. All rights reserved.</p>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <a href="#" class="hover:text-accent transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-accent transition">Terms of Service</a>
+                </div>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <a class="hover:text-accent transition">Created by Kiran Parganiha</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="cartModal">
+        <div class="absolute right-0 top-0 h-full w-full md:w-1/2 lg:w-1/3 bg-white shadow-lg overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-serif font-bold">Your Cart (0)</h3>
+                    <button id="closeCart" class="text-gray-500 hover:text-accent">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="text-center py-12" id="emptyCart">
+                    <i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i>
+                    <p class="text-gray-500 mb-4">Your cart is empty</p>
+                    <a href="#" class="bg-accent text-white px-6 py-2 rounded-full inline-block">Continue Shopping</a>
+                </div>
+                
+                <div class="hidden" id="cartItems">
+                    <!-- Cart items would be populated here -->
+                </div>
+                
+                <div class="border-t border-gray-200 pt-4 mt-4 hidden" id="cartSummary">
+                    <div class="flex justify-between mb-2">
+                        <span>Subtotal</span>
+                        <span>₹0.00</span>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <button class="w-full bg-accent text-white py-3 rounded-full font-medium hover:bg-opacity-90">
+                        Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cart = [];
+      
+        function updateCartUI() {
+          const cartItems = document.getElementById('cartItems');
+          const emptyCart = document.getElementById('emptyCart');
+          const cartSummary = document.getElementById('cartSummary');
+          const cartTitle = document.querySelector('#cartModal h3');
+      
+          cartTitle.textContent = `Your Cart (${cart.length})`;
+      
+          if (cart.length === 0) {
+            cartItems.classList.add('hidden');
+            cartSummary.classList.add('hidden');
+            emptyCart.classList.remove('hidden');
+          } else {
+            cartItems.classList.remove('hidden');
+            cartSummary.classList.remove('hidden');
+            emptyCart.classList.add('hidden');
+      
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+      
+            cart.forEach(item => {
+              subtotal += parseFloat(item.price.replace('₹', '').replace(',', '').trim());
+      
+              cartItems.innerHTML += `
+                <div class="flex items-center gap-4 border-b py-3">
+                  <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                  <div class="flex-1">
+                    <p class="font-semibold">${item.name}</p>
+                    <p class="text-sm text-gray-500">${item.price}</p>
+                  </div>
+                </div>
+              `;
+            });
+      
+            cartSummary.innerHTML = `
+              <div class="flex justify-between mb-2">
+                <span>Subtotal</span>
+                <span>₹${subtotal.toFixed(2)}</span>
+              </div>
+              <div class="flex justify-between mb-4">
+                <span>Shipping</span>
+                <span>Calculated at checkout</span>
+              </div>
+              <button class="w-full bg-accent text-white py-3 rounded-full font-medium hover:bg-opacity-90">
+                Checkout
+              </button>
+            `;
+          }
+        }
+      
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+          button.addEventListener('click', function () {
+            const productCard = this.closest('.product-card');
+            const productName = productCard.querySelector('h3').textContent;
+            const productPrice = productCard.querySelector('.font-serif').textContent;
+            const productImage = productCard.querySelector('.product-image').getAttribute('src');
+      
+            cart.push({
+              name: productName,
+              price: productPrice,
+              image: productImage
+            });
+      
+            document.querySelector('.fa-shopping-bag + span').textContent = cart.length;
+      
+            updateCartUI();
+            alert(`${productName} added to cart!`);
+          });
+        });
+      
+        // Cart modal open/close
+        document.querySelector('.fa-shopping-bag').closest('button').addEventListener('click', () => {
+          document.getElementById('cartModal').classList.remove('hidden');
+          updateCartUI();
+        });
+      
+        document.getElementById('closeCart').addEventListener('click', () => {
+          document.getElementById('cartModal').classList.add('hidden');
+        });
+      
+        document.getElementById('cartModal').addEventListener('click', function (e) {
+          if (e.target === this) {
+            this.classList.add('hidden');
+          }
+        });
+
+        // Open form
+        document.getElementById('loginBtn')?.addEventListener('click', () => {
+          document.getElementById('loginFormContainer').classList.add('active');
+        });
+      
+        // Close form
+        document.getElementById('form-close')?.addEventListener('click', () => {
+          document.getElementById('loginFormContainer').classList.remove('active');
+        });
+        
+    </script>
+        
+</body>
+</html>
